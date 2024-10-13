@@ -1,6 +1,13 @@
 # F5-TTS-Demo
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Demo.ipynb) <br>
 
+## 1. Run on Google Colab Cell
+![Colab Cell](https://github.com/user-attachments/assets/219850e0-30e9-4ef9-89b1-2ee32aba1ec7)
+## 2. Run Using Gradio App
+![Gradio App](https://github.com/user-attachments/assets/23191751-dfb9-4a1c-ae07-5223549280bb)
+## 3. SRT to Audio Generation (Subtitle Dubbing)
+![Subtitle Dubbing](https://github.com/user-attachments/assets/7a1494a0-bae8-4bf1-86ab-de577842102f)
+
 ## Local Set Up
 ```
 git clone https://github.com/SWivid/F5-TTS.git
@@ -17,3 +24,5 @@ pip install -r requirements_gradio.txt
 ```
 python -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/NeuralFalconYT/F5-TTS-Demo/refs/heads/main/download_model.py').read().decode())"
 ```
+## Credit
+[F5-TTS](https://github.com/SWivid/F5-TTS) <br>
