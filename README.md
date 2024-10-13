@@ -8,3 +8,9 @@ python -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githu
 ```
 cd F5-TTS
 ```
+```
+pip install -r requirements.txt
+```
+```
+pip install -r requirements_gradio.txt
+```
