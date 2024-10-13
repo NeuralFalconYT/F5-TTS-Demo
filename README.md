@@ -1,6 +1,7 @@
 # F5-TTS-Demo
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Demo.ipynb) <br>
 
+## Local Set Up
 ```
 git clone https://github.com/SWivid/F5-TTS.git
 ```
