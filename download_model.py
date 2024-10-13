@@ -60,4 +60,4 @@ def download_models(base_path, redownload=False):
 
 base_path = "."
 # base_path = "/content"     
-download_models(base_path, redownload=False)
+download_models(base_path, redownload=True)
