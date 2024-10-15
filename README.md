@@ -14,14 +14,16 @@ git clone https://github.com/SWivid/F5-TTS.git
 ```
 cd F5-TTS
 ```
+[Skip this if you already have Torch installed] Install torch with your CUDA version, e.g. :
+```
+pip install torch==2.3.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+pip install torchaudio==2.3.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+```
 ```
 pip install -r requirements.txt
 ```
 ```
-pip install -r requirements_gradio.txt
-```
-```
-python -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/NeuralFalconYT/F5-TTS-Demo/refs/heads/main/download_model.py').read().decode())"
+python gradio_app.py
 ```
 ## Credit
 [F5-TTS](https://github.com/SWivid/F5-TTS) <br>
