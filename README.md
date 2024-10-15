@@ -63,10 +63,24 @@ python gradio_app.py --share
 deactivate
 ```
 
-
+Load on the GPU if it is currently loading on the CPU
+```
+state_dict = torch.load(model_path, map_location="cpu")
+```
 ```
 python -c "import requests; exec(requests.get('https://raw.githubusercontent.com/NeuralFalconYT/F5-TTS-Demo/refs/heads/main/download_model.py').text)"
 
+```
+replace
+```
+# vocos = Vocos.from_pretrained("charactr/vocos-mel-24khz")
+```
+```
+vocos_local_path = "./ckpts/vocos-mel-24khz"
+vocos = Vocos.from_hparams(f"{vocos_local_path}/config.yaml")
+state_dict = torch.load(f"{vocos_local_path}/pytorch_model.bin", map_location=device)
+vocos.load_state_dict(state_dict)
+vocos.eval()
 ```
 
 ## Credit
