@@ -45,9 +45,9 @@ def conditional_download(url, download_file_path, redownload=False):
 def download_models(base_path, redownload=False):
     print("Starting model downloads...")
     model_urls = [
-        ("https://huggingface.co/SWivid/E2-TTS/resolve/main/E2TTS_Base/model_1200000.pt", f"{base_path}/ckpts/E2TTS_Base/model_1200000.pt"),
+        # ("https://huggingface.co/SWivid/E2-TTS/resolve/main/E2TTS_Base/model_1200000.pt", f"{base_path}/ckpts/E2TTS_Base/model_1200000.pt"),
         # ("https://huggingface.co/SWivid/E2-TTS/resolve/main/E2TTS_Base/model_1200000.safetensors", f"{base_path}/ckpts/E2TTS_Base/model_1200000.safetensors"),
-        ("https://huggingface.co/SWivid/F5-TTS/resolve/main/F5TTS_Base/model_1200000.pt", f"{base_path}/ckpts/F5TTS_Base/model_1200000.pt"),
+        # ("https://huggingface.co/SWivid/F5-TTS/resolve/main/F5TTS_Base/model_1200000.pt", f"{base_path}/ckpts/F5TTS_Base/model_1200000.pt"),
         # ("https://huggingface.co/SWivid/F5-TTS/resolve/main/F5TTS_Base/model_1200000.safetensors", f"{base_path}/ckpts/F5TTS_Base/model_1200000.safetensors"),
         ("https://huggingface.co/charactr/vocos-mel-24khz/resolve/main/pytorch_model.bin", f"{base_path}/ckpts/vocos-mel-24khz/pytorch_model.bin"),
         ("https://huggingface.co/charactr/vocos-mel-24khz/resolve/main/config.yaml", f"{base_path}/ckpts/vocos-mel-24khz/config.yaml")
