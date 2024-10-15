@@ -12,23 +12,49 @@ https://github.com/user-attachments/assets/476f966d-946e-4cce-b677-36942a926fca
 
 
 ## Local Set Up
+#### Step 1: Create and activate a virtual environment
+
+##### Create a virtual environment
+```
+python -m venv f5-tts-venv
+```
+##### Activate the virtual environment (Linux/Mac)
+```
+source f5-tts-venv/bin/activate
+```
+##### Activate the virtual environment (Windows)
+```
+f5-tts-venv\Scripts\activate
+```
+#### Step 2: Clone the repository and navigate to the folder
 ```
 git clone https://github.com/SWivid/F5-TTS.git
 ```
 ```
 cd F5-TTS
 ```
-[Skip this if you already have Torch installed] Install torch with your CUDA version, e.g. :
+#### Step 3: Check CUDA version (if needed)
+```
+nvcc --version
+```
+#### Step 4: Install PyTorch and Torchaudio with CUDA [pytorch.org](https://pytorch.org/get-started/locally/)
 ```
 pip install torch==2.3.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
 pip install torchaudio==2.3.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
 ```
+#### Step 5: Install other dependencies
 ```
 pip install -r requirements.txt
 ```
+#### Step 6: Run the application
 ```
 python gradio_app.py
 ```
+#### Step 7: Deactivate the virtual environment when done
+```
+deactivate
+```
+
 ## Credit
 [F5-TTS](https://github.com/SWivid/F5-TTS) <br>
 ```
