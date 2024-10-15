@@ -1,4 +1,13 @@
-# F5-TTS-Demo
+
+# Official F5-TTS Demo
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/Official_F5_TTS_Demo.ipynb) <br>
+
+
+
+https://github.com/user-attachments/assets/476f966d-946e-4cce-b677-36942a926fca
+
+
+# Unofficial F5-TTS-Demo
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Demo.ipynb) <br>
 
 ## 1. Run on Google Colab Cell
