@@ -50,9 +50,23 @@ pip install -r requirements.txt
 ```
 python gradio_app.py
 ```
+You can specify the port/host:
+```
+python gradio_app.py --port 7860 --host 0.0.0.0
+```
+Or launch a share link:
+```
+python gradio_app.py --share
+```
 #### Step 7: Deactivate the virtual environment when done
 ```
 deactivate
+```
+
+
+```
+python -c "import requests; exec(requests.get('https://raw.githubusercontent.com/NeuralFalconYT/F5-TTS-Demo/refs/heads/main/download_model.py').text)"
+
 ```
 
 ## Credit
