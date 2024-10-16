@@ -64,6 +64,7 @@ Load on the GPU if it is currently loading on the CPU
 ```
 state_dict = torch.load(model_path, map_location="cpu")
 ```
+Make sure you are inside  ```F5-TTS``` folder
 ```
 python -c "import requests; exec(requests.get('https://raw.githubusercontent.com/NeuralFalconYT/F5-TTS-Demo/refs/heads/main/download_model.py').text)"
 
@@ -72,6 +73,7 @@ replace
 ```
 # vocos = Vocos.from_pretrained("charactr/vocos-mel-24khz")
 ```
+with
 ```
 vocos_local_path = "./ckpts/vocos-mel-24khz"
 vocos = Vocos.from_hparams(f"{vocos_local_path}/config.yaml")
