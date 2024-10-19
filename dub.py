@@ -1071,7 +1071,7 @@ class SRTDubbing:
                     "-i", tts_filename,
                     "-filter:a", f"atempo={speedup_factor}",
                     speedup_filename
-                ], check=True)
+                ,"-y"], check=True)
     
                 # Replace the original TTS audio with the sped-up version
                 shutil.move(speedup_filename, audio_path)
