@@ -1264,5 +1264,5 @@ gradio_outputs=[gr.File(label="Clone dubbing Voice",show_label=True),
                 gr.File(label="Translated SRT File",show_label=True),
                 ]
 demo = gr.Interface(fn=clone_from_srt, inputs=gradio_inputs,outputs=gradio_outputs , title="F5-TTS Single Speaker Video Dubbing")#,examples=demo_examples)
-demo.launch(debug=True,share=True)
+demo.launch(debug=False,share=True)
 
