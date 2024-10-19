@@ -1047,45 +1047,47 @@ class SRTDubbing:
     def text_to_speech(text, audio_path, language, actual_duration):
         tts_filename = "temp.wav"
         your_tts(text, tts_filename, language, actual_duration)
-        
-        # Check the duration of the generated TTS audio
+    
+        # Load TTS audio
         tts_audio = AudioSegment.from_file(tts_filename)
         tts_duration = len(tts_audio)
     
         if actual_duration == 0:
-            # If actual duration is zero, use the original TTS audio without modifications
             shutil.move(tts_filename, audio_path)
             return
     
-        # If TTS audio duration is longer than actual duration, speed up the audio
+        # Speed up or handle silence based on duration
         if tts_duration > actual_duration:
             speedup_factor = tts_duration / actual_duration
             speedup_filename = "speedup_temp.wav"
     
-            # Use ffmpeg to change audio speed
             subprocess.run([
                 "ffmpeg",
                 "-i", tts_filename,
                 "-filter:a", f"atempo={speedup_factor}",
-                speedup_filename,
-            "-y"], check=True)
+                speedup_filename
+            ], check=True)
     
-            # Replace the original TTS audio with the sped-up version
             shutil.move(speedup_filename, audio_path)
         elif tts_duration < actual_duration:
-            # If TTS audio duration is less than actual duration, add silence to match the duration
             silence_gap = actual_duration - tts_duration
             silence = AudioSegment.silent(duration=int(silence_gap))
+    
+            # Set properties of silence to match TTS audio
             silence = silence.set_frame_rate(tts_audio.frame_rate)
             silence = silence.set_channels(tts_audio.channels)
     
+            # Optional: Set sample width if necessary
+            desired_sample_width = 2  # Set desired sample width (e.g., 16-bit)
+            tts_audio = tts_audio.set_sample_width(desired_sample_width)
+            silence = silence.set_sample_width(desired_sample_width)
+    
             new_audio = tts_audio + silence
     
-            # Save the new audio with added silence
             new_audio.export(audio_path, format="wav")
         else:
-            # If TTS audio duration is equal to actual duration, use the original TTS audio
             shutil.move(tts_filename, audio_path)
+
 
 
     # @staticmethod
