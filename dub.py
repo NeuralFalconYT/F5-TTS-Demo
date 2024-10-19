@@ -1083,6 +1083,11 @@ class SRTDubbing:
             # If TTS audio duration is less than actual duration, add silence to match the duration
             silence_gap = actual_duration - tts_duration
             silence = AudioSegment.silent(duration=int(silence_gap))
+    
+            # Sync silence properties with tts_audio (sample width, channels, frame rate)
+            silence = silence.set_channels(tts_audio.channels).set_frame_rate(tts_audio.frame_rate).set_sample_width(tts_audio.sample_width)
+            
+            # Combine the TTS audio with the silence
             new_audio = tts_audio + silence
     
             # Save the new audio with added silence
@@ -1090,6 +1095,7 @@ class SRTDubbing:
         else:
             # If TTS audio duration is equal to actual duration, use the original TTS audio
             shutil.move(tts_filename, audio_path)
+
 
     # @staticmethod
     # def text_to_speech(text, audio_path, language, actual_duration):
