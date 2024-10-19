@@ -6,7 +6,7 @@ base_path = "."
 # import locale
 # locale.getpreferredencoding = lambda: "UTF-8"
 import os
-install_path=f"{base_path}/F5-TTS"
+install_path=f"{base_path}/"
 os.chdir(install_path)
 import os
 import re
