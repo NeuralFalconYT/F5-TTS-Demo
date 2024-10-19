@@ -93,6 +93,9 @@ vocos.eval()
 ## 3. SRT to Audio Generation (Subtitle Dubbing)
 ![Subtitle](https://github.com/user-attachments/assets/da76f0d2-cd1a-409a-a6d8-0622986ef264)
 
+! F5-TTS Video Dubbing Other Language to English or Chinese
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Video_Dubbing_Single_Speaker.ipynb) <br>
+
 
 
 ## Credit
