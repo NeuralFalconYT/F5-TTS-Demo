@@ -1036,51 +1036,100 @@ def clean_srt(input_path):
 
 
 
-
+import shutil
+import subprocess
+from pydub import AudioSegment
 
 class SRTDubbing:
     def __init__(self):
         pass
-
     @staticmethod
     def text_to_speech(text, audio_path, language, actual_duration):
+        actual_duration = abs(actual_duration)  # Ensure positive duration
         tts_filename = "temp.wav"
-        your_tts(text,tts_filename,language,actual_duration)
+        your_tts(text, tts_filename, language, actual_duration)
+        
         # Check the duration of the generated TTS audio
         tts_audio = AudioSegment.from_file(tts_filename)
         tts_duration = len(tts_audio)
-
+    
         if actual_duration == 0:
             # If actual duration is zero, use the original TTS audio without modifications
             shutil.move(tts_filename, audio_path)
             return
-
+    
         # If TTS audio duration is longer than actual duration, speed up the audio
         if tts_duration > actual_duration:
             speedup_factor = tts_duration / actual_duration
             speedup_filename = "speedup_temp.wav"
-
-            # Use ffmpeg to change audio speed
-            subprocess.run([
-                "ffmpeg",
-                "-i", tts_filename,
-                "-filter:a", f"atempo={speedup_factor}",
-                speedup_filename
-            ], check=True)
-
-            # Replace the original TTS audio with the sped-up version
-            shutil.move(speedup_filename, audio_path)
+    
+            # Handle ffmpeg atempo limits (between 0.5 and 2.0)
+            if 0.5 <= speedup_factor <= 2.0:
+                # Use ffmpeg to change audio speed
+                subprocess.run([
+                    "ffmpeg",
+                    "-i", tts_filename,
+                    "-filter:a", f"atempo={speedup_factor}",
+                    speedup_filename
+                ], check=True)
+    
+                # Replace the original TTS audio with the sped-up version
+                shutil.move(speedup_filename, audio_path)
+            else:
+                print(f"Error: Speedup factor {speedup_factor} out of range for ffmpeg atempo filter.")
+                shutil.move(tts_filename, audio_path)
+    
         elif tts_duration < actual_duration:
             # If TTS audio duration is less than actual duration, add silence to match the duration
             silence_gap = actual_duration - tts_duration
             silence = AudioSegment.silent(duration=int(silence_gap))
             new_audio = tts_audio + silence
-
+    
             # Save the new audio with added silence
             new_audio.export(audio_path, format="wav")
         else:
             # If TTS audio duration is equal to actual duration, use the original TTS audio
             shutil.move(tts_filename, audio_path)
+
+    # @staticmethod
+    # def text_to_speech(text, audio_path, language, actual_duration):
+    #     tts_filename = "temp.wav"
+    #     your_tts(text,tts_filename,language,actual_duration)
+    #     # Check the duration of the generated TTS audio
+    #     tts_audio = AudioSegment.from_file(tts_filename)
+    #     tts_duration = len(tts_audio)
+
+    #     if actual_duration == 0:
+    #         # If actual duration is zero, use the original TTS audio without modifications
+    #         shutil.move(tts_filename, audio_path)
+    #         return
+
+    #     # If TTS audio duration is longer than actual duration, speed up the audio
+    #     if tts_duration > actual_duration:
+    #         speedup_factor = tts_duration / actual_duration
+    #         speedup_filename = "speedup_temp.wav"
+
+    #         # Use ffmpeg to change audio speed
+    #         subprocess.run([
+    #             "ffmpeg",
+    #             "-i", tts_filename,
+    #             "-filter:a", f"atempo={speedup_factor}",
+    #             speedup_filename
+    #         ], check=True)
+
+    #         # Replace the original TTS audio with the sped-up version
+    #         shutil.move(speedup_filename, audio_path)
+    #     elif tts_duration < actual_duration:
+    #         # If TTS audio duration is less than actual duration, add silence to match the duration
+    #         silence_gap = actual_duration - tts_duration
+    #         silence = AudioSegment.silent(duration=int(silence_gap))
+    #         new_audio = tts_audio + silence
+
+        #     # Save the new audio with added silence
+        #     new_audio.export(audio_path, format="wav")
+        # else:
+        #     # If TTS audio duration is equal to actual duration, use the original TTS audio
+        #     shutil.move(tts_filename, audio_path)
 
     @staticmethod
     def make_silence(pause_time, pause_save_path):
