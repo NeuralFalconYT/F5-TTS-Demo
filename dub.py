@@ -1182,9 +1182,9 @@ def srt_process(srt_file_path,ref_audio_path,clone_method="F5TTS_Base",dest_lang
   srt_dubbing.srt_to_dub(srt_file_path, dub_save_path,dest_language)
   return dub_save_path
 
-srt_file_path="/content/test.srt"
-ref_audio_path="/content/F5-TTS/tests/ref_audio/test_en_1_ref_short.wav"
-srt_process(srt_file_path,ref_audio_path,clone_method="F5TTS_Base",dest_language="English")
+# srt_file_path="/content/test.srt"
+# ref_audio_path="/content/F5-TTS/tests/ref_audio/test_en_1_ref_short.wav"
+# srt_process(srt_file_path,ref_audio_path,clone_method="F5TTS_Base",dest_language="English")
 
 
 
