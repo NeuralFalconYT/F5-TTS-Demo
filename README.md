@@ -95,7 +95,7 @@ vocos.eval()
 
 # F5-TTS Video Dubbing from Any Languages to English or Chinese (Only Single Speaker Supported)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Video_Dubbing_Single_Speaker.ipynb) <br>
-
+Follow this Colab Notebook to run it on local device too
 ![dubbing](https://github.com/user-attachments/assets/ddc12f4c-7457-45b1-a6ff-90ca699b7711)
 
 
