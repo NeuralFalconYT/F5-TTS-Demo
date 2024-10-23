@@ -671,7 +671,7 @@ def clean_file_name(file_path):
 #     return audio_file_path,duration_seconds
 
 def get_audio_file(uploaded_file):
-    temp_folder = f"{base_path}/subtitle_audio"
+    global temp_folder
     file_path = os.path.join(temp_folder, os.path.basename(uploaded_file))
     file_path=clean_file_name(file_path)
     shutil.copy(uploaded_file, file_path)
@@ -1267,6 +1267,11 @@ import gradio as gr
 
 source_lang_list = ['Automatic']
 source_lang_list.extend(available_language)
+
+temp_folder = f"{base_path}/subtitle_audio"
+if not os.path.exists(temp_folder):
+    os.makedirs(temp_folder, exist_ok=True)
+
 
 @click.command()
 @click.option("--debug", is_flag=True, default=False, help="Enable debug mode.")
