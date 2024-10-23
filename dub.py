@@ -1244,13 +1244,12 @@ def srt_process(srt_file_path,ref_audio_path,clone_method="F5TTS_Base",dest_lang
 
 
 
-import gradio as gr
 
-os.chdir(install_path)
 def subtitle_maker(Audio_or_Video_File,Source_Language,Destination_Language):
   try:
     original_srt_file,translated_srt_file,original_text_file,translated_text_file,used_audio_path=whisper_subtitle(Audio_or_Video_File,Source_Language,Destination_Language)
-  except:
+  except Exception as e:
+    print(e)
     original_srt_file,translated_srt_file,original_text_file,translated_text_file,used_audio_path=None,None,None,None,None
   # return original_srt_file,original_text_file,translated_srt_file,translated_text_file
   return translated_srt_file
@@ -1261,16 +1260,42 @@ def clone_from_srt(Audio_or_Video_File,Source_Language,Destination_Language,ref_
   dub_save_path=srt_process(srt_path,ref_audio_path,clone_method=clone_method)
   return dub_save_path,srt_path
 
-source_lang_list=['Automatic']
+os.chdir(install_path)
+
+import click
+import gradio as gr
+
+source_lang_list = ['Automatic']
 source_lang_list.extend(available_language)
-gradio_inputs=[gr.File(label="Upload Audio or Video File"),
-               gr.Dropdown(label="Source Language",choices=source_lang_list,value="Automatic"),
-               gr.Dropdown(label="Destination Language",choices=['English','Chinese'],value="English"),
-               gr.Audio(label="Reference Audio", type="filepath"),
-               gr.Dropdown(label="Choose TTS Model",choices=['F5TTS_Base', 'E2TTS_Base'],value="F5TTS_Base")]
-gradio_outputs=[gr.File(label="Clone dubbing Voice",show_label=True),
-                gr.File(label="Translated SRT File",show_label=True),
-                ]
-demo = gr.Interface(fn=clone_from_srt, inputs=gradio_inputs,outputs=gradio_outputs , title="F5-TTS Single Speaker Video Dubbing")#,examples=demo_examples)
-demo.launch(debug=False,share=True)
+
+@click.command()
+@click.option("--debug", is_flag=True, default=False, help="Enable debug mode.")
+@click.option("--share", is_flag=True, default=False, help="Enable sharing of the interface.")
+def main(debug, share):
+    gradio_inputs = [
+        gr.File(label="Upload Audio or Video File"),
+        gr.Dropdown(label="Source Language", choices=source_lang_list, value="Automatic"),
+        gr.Dropdown(label="Destination Language", choices=['English', 'Chinese'], value="English"),
+        gr.Audio(label="Reference Audio", type="filepath"),
+        gr.Dropdown(label="Choose TTS Model", choices=['F5TTS_Base', 'E2TTS_Base'], value="F5TTS_Base")
+    ]
+
+    gradio_outputs = [
+        gr.File(label="Clone Dubbing Voice", show_label=True),
+        gr.File(label="Translated SRT File", show_label=True)
+    ]
+
+    # Create and launch the Gradio interface
+    demo = gr.Interface(
+        fn=clone_from_srt, 
+        inputs=gradio_inputs, 
+        outputs=gradio_outputs, 
+        title="F5-TTS Single Speaker Video Dubbing"
+    )
+    
+    demo.launch(debug=debug, share=share)
+
+if __name__ == "__main__":
+    main()
+
 
