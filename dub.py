@@ -621,54 +621,62 @@ def clean_file_name(file_path):
 
     return clean_file_path
 
+# def get_audio_file(uploaded_file):
+#     global base_path
+#     # ,device
+#     device = "cuda" if torch.cuda.is_available() else "cpu"
+#     # Detect the file type (audio/video)
+#     mime_type, _ = mimetypes.guess_type(uploaded_file)
+#     # Create the folder path to store audio files
+#     audio_folder = f"{base_path}/subtitle_audio"
+#     os.makedirs(audio_folder, exist_ok=True)
+#     # Initialize variable for the audio file path
+#     audio_file_path = ""
+#     if mime_type and mime_type.startswith('audio'):
+#         # If it's an audio file, save it as is
+#         audio_file_path = os.path.join(audio_folder, os.path.basename(uploaded_file))
+#         audio_file_path=clean_file_name(audio_file_path)
+#         shutil.copy(uploaded_file, audio_file_path)  # Move file to audio folder
+
+#     elif mime_type and mime_type.startswith('video'):
+#         # If it's a video file, extract the audio
+#         audio_file_name = os.path.splitext(os.path.basename(uploaded_file))[0] + ".mp3"
+#         audio_file_path = os.path.join(audio_folder, audio_file_name)
+#         audio_file_path=clean_file_name(audio_file_path)
+
+#         # Extract the file extension from the uploaded file
+#         file_extension = os.path.splitext(uploaded_file)[1]  # Includes the dot, e.g., '.mp4'
+
+#         # Generate a random UUID and create a new file name with the same extension
+#         random_uuid = uuid.uuid4().hex[:6]
+#         new_file_name = random_uuid + file_extension
+
+#         # Set the new file path in the subtitle_audio folder
+#         new_file_path = os.path.join(audio_folder, new_file_name)
+
+#         # Copy the original video file to the new location with the new name
+#         shutil.copy(uploaded_file, new_file_path)
+#         if device=="cuda":
+#           command = f"ffmpeg -hwaccel cuda -i {new_file_path} {audio_file_path} -y"
+#         else:
+#           command = f"ffmpeg -i {new_file_path} {audio_file_path} -y"
+
+#         subprocess.run(command, shell=True)
+#         if os.path.exists(new_file_path):
+#           os.remove(new_file_path)
+#     # Return the saved audio file path
+#     audio = AudioSegment.from_file(audio_file_path)
+#     # Get the duration in seconds
+#     duration_seconds = len(audio) / 1000.0  # pydub measures duration in milliseconds
+#     return audio_file_path,duration_seconds
+
 def get_audio_file(uploaded_file):
-    global base_path
-    # ,device
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    # Detect the file type (audio/video)
-    mime_type, _ = mimetypes.guess_type(uploaded_file)
-    # Create the folder path to store audio files
-    audio_folder = f"{base_path}/subtitle_audio"
-    os.makedirs(audio_folder, exist_ok=True)
-    # Initialize variable for the audio file path
-    audio_file_path = ""
-    if mime_type and mime_type.startswith('audio'):
-        # If it's an audio file, save it as is
-        audio_file_path = os.path.join(audio_folder, os.path.basename(uploaded_file))
-        audio_file_path=clean_file_name(audio_file_path)
-        shutil.copy(uploaded_file, audio_file_path)  # Move file to audio folder
+    temp_folder = f"{base_path}/subtitle_audio"
+    file_path = os.path.join(temp_folder, os.path.basename(uploaded_file))
+    file_path=clean_file_name(file_path)
+    shutil.copy(uploaded_file, file_path)
+    return file_path,None
 
-    elif mime_type and mime_type.startswith('video'):
-        # If it's a video file, extract the audio
-        audio_file_name = os.path.splitext(os.path.basename(uploaded_file))[0] + ".mp3"
-        audio_file_path = os.path.join(audio_folder, audio_file_name)
-        audio_file_path=clean_file_name(audio_file_path)
-
-        # Extract the file extension from the uploaded file
-        file_extension = os.path.splitext(uploaded_file)[1]  # Includes the dot, e.g., '.mp4'
-
-        # Generate a random UUID and create a new file name with the same extension
-        random_uuid = uuid.uuid4().hex[:6]
-        new_file_name = random_uuid + file_extension
-
-        # Set the new file path in the subtitle_audio folder
-        new_file_path = os.path.join(audio_folder, new_file_name)
-
-        # Copy the original video file to the new location with the new name
-        shutil.copy(uploaded_file, new_file_path)
-        if device=="cuda":
-          command = f"ffmpeg -hwaccel cuda -i {new_file_path} {audio_file_path} -y"
-        else:
-          command = f"ffmpeg -i {new_file_path} {audio_file_path} -y"
-
-        subprocess.run(command, shell=True)
-        if os.path.exists(new_file_path):
-          os.remove(new_file_path)
-    # Return the saved audio file path
-    audio = AudioSegment.from_file(audio_file_path)
-    # Get the duration in seconds
-    duration_seconds = len(audio) / 1000.0  # pydub measures duration in milliseconds
-    return audio_file_path,duration_seconds
 
 def format_segments(segments):
     saved_segments = list(segments)
@@ -846,8 +854,8 @@ def whisper_subtitle(uploaded_file,Source_Language,Destination_Language):
     lang=language_dict[Source_Language]['lang_code']
     segments,d = faster_whisper_model.transcribe(audio_path, word_timestamps=True,language=lang)
     src_lang=Source_Language
-  # if os.path.exists(audio_path):
-  #   os.remove(audio_path)
+  if os.path.exists(audio_path):
+    os.remove(audio_path)
 
 
   sentence_timestamp,words_timestamp,text=format_segments(segments)
