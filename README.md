@@ -13,15 +13,15 @@ https://github.com/user-attachments/assets/476f966d-946e-4cce-b677-36942a926fca
 
 ##### Create a virtual environment
 ```
-python -m venv f5-tts-venv
+python -m venv f5-tts
 ```
 ##### Activate the virtual environment (Linux/Mac)
 ```
-source f5-tts-venv/bin/activate
+source f5-tts/bin/activate
 ```
 ##### Activate the virtual environment (Windows)
 ```
-f5-tts-venv\Scripts\activate
+f5-tts\Scripts\activate
 ```
 #### Step 2: Check CUDA version (if needed)
 ```
