@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/476f966d-946e-4cce-b677-36942a926fca
 
 ## Local Set Up
 #### Step 1: Create and activate a virtual environment
-
+## Using virtualenv
 ##### Create a virtual environment
 ```
 python -m venv f5-tts
@@ -22,6 +22,12 @@ source f5-tts/bin/activate
 ##### Activate the virtual environment (Windows)
 ```
 f5-tts\Scripts\activate
+```
+## Using conda
+##### Create a python 3.10 conda env (you could also use virtualenv)
+```
+conda create -n f5-tts python=3.10
+conda activate f5-tts
 ```
 #### Step 2: Check CUDA version (if needed)
 ```
