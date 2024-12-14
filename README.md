@@ -1,6 +1,10 @@
 
 # Official Demo From [F5-TTS](https://github.com/SWivid/F5-TTS)
+Official one:
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Latest.ipynb) <br>
+
+For Hindi:
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NeuralFalconYT/F5-TTS-Demo/blob/main/F5_TTS_Hindi_Small.ipynb) <br>
 
 
 
